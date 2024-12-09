@@ -47,15 +47,15 @@ func (healthchecksHandler) Execute(ctx context.Context, cmd *v1.Hook, vars inter
 		PingUrl += "/log"
 	}
 
-	// type Message struct {
-	// 	Text string `json:"text"`
-	// }
+	type Message struct {
+		Text string `"text"`
+	}
 
-	// request := Message{
-	// 	Text: payload,
-	// }
+	request := Message{
+		Text: payload,
+	}
 
-	// requestBytes, _ := json.Marshal(request)
+	requestBytes, _ := text.Marshal(request)
 
 	body, err := hookutil.PostRequest(PingUrl, "text/plain", bytes.NewReader(payload))
 	if err != nil {

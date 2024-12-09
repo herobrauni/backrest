@@ -48,16 +48,16 @@ func (healthchecksHandler) Execute(ctx context.Context, cmd *v1.Hook, vars inter
 	}
 
 	type Message struct {
-		Text string `"text"`
+		Text string `json:"text"`
 	}
 
 	request := Message{
 		Text: payload,
 	}
 
-	requestBytes, _ := text.Marshal(request)
+	requestBytes, _ := json.Marshal(request)
 
-	body, err := hookutil.PostRequest(PingUrl, "text/plain", bytes.NewReader(payload))
+	body, err := hookutil.PostRequest(PingUrl, "application/json", bytes.NewReader(requestBytes))
 	if err != nil {
 		return fmt.Errorf("sending healthchecks message to %q: %w", PingUrl, err)
 	}
